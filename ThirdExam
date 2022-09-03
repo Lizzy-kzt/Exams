@@ -1,0 +1,92 @@
+#include <stdio.h>
+#define SIZE 100
+
+ char arr1[SIZE];
+
+int main(){
+
+
+int  index=0;
+int total=0;
+char* ptr=&arr1[index];
+
+ printf("Enter the text");
+
+       for(int i=0;i<SIZE;i++){
+
+            scanf("%c",ptr+i);
+              if(*(ptr+i)=='\n')break;
+            index++;
+
+         }
+
+ printf("\n You have entered %d size: ",index);
+
+ total=SIZE-index;
+ printf("\n You can enter %d size", total);
+
+   //Adding data with pointer
+
+
+        char insertdata;
+        printf("\n Add your data: ");
+        for(int j=index;j<SIZE;j++){
+            scanf("%c",ptr+j);
+            if(*(ptr+j)=='\n')break;
+            index++;
+        }
+        printf("\n Your data is  %s",arr1);
+
+
+
+//Inserting data using pointer
+
+    int insert=0;
+    int position=0;
+
+      printf("\nEnter the place to be insert: ");
+      scanf("%d",&insert);
+
+        position=insert-1;
+
+    for(int j=index;j>=insert;j--){
+
+
+            *(ptr+j)=*(ptr+(j-1));
+
+
+        }
+
+     printf("\nEnter the data: ");
+     scanf(" %c",&insertdata);
+
+      *(ptr+position)=insertdata;
+
+
+     printf("\n The data is  %s",arr1);
+
+//Deleting data
+
+    int delposition=0;
+    int y=0;
+
+    printf("\nEnter the data position to be deleted: ");
+    scanf("%d",&delposition);
+   y=delposition-1;
+
+
+        for(int x=y;x<=(index-1);x++){
+            *(ptr+x)=*(ptr+(x+1));
+
+        }
+
+            for(int a=0;a<index;a++){
+
+                printf("%c",*(ptr+a));
+            }
+
+
+return 0;
+}
+
+
