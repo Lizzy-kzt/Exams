@@ -1,0 +1,290 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+void insertdata();
+void finddata();
+void updatedata();
+int main(){
+
+int data=0;
+
+
+        printf("Press1: to insert data");
+        printf("Press2: to find data");
+        printf("Press3 to update data");
+
+        scanf("%d",&data);
+
+    switch(data){
+
+    case 1:insertdata();break;
+    case 2:finddata();break;
+    case 3:updatedata();break;
+
+    }
+return 0;
+}
+//Adding Data
+
+void insertdata(){
+int id=0;
+char username[50];
+int password=0;
+ int amount=0;
+int age=0;
+char location[50];
+
+FILE *fptr;
+
+fptr=fopen("client.txt","a");
+
+printf("Enter id,username,password,amount,age and location");
+printf("Enter control^z to terminate");
+printf(">:");
+
+scanf("%d%s%d%d%d%s",&id,username,&password,&amount,&age,location);
+while(!feof(stdin)){
+fprintf(fptr,"%d\t%s\t%d\t%d\t%d\t%s\n",id,username,password,amount,age,location);
+
+printf(">:");
+scanf("%d%s%d%d%d%s",&id,username,&password,&amount,&age,location);
+}
+
+fclose(fptr);
+
+}
+//Finding Data
+void finddata(){
+char name[50];
+int id=0;
+char cha[50];
+int pass=0;
+int balance=0;
+int age=0;
+char locate[50];
+
+FILE *fptr2;
+fptr2=fopen("client.txt","r");
+
+if(fptr2==NULL){
+   printf("File doesn't exit");
+   exit(1);
+   }else{
+       printf("Enter the username to find: ");
+       scanf("%s",&name);
+     while(!feof(stdin)){
+
+        fscanf(fptr2," %d%s%d%d%d%s",&id,cha,&pass,&balance,&age,locate);
+
+                if(strcmp(cha,name)==0)
+                {
+                    printf(" %d \t%s\t%d\t%d\t%d\t%s",id,cha,pass,balance,age,locate);
+                    break;
+
+                }
+                }
+            }
+
+fclose(fptr2);
+}
+//Updating Data
+void updatedata(){
+
+int id3=0;
+char username3[50];
+int password3=0;
+int amount3=0;
+int age3=0;
+char location3[10];
+char buffer[100];
+
+FILE *fptr3,*fp;
+
+
+fptr3=fopen("client.txt","r");
+fp=fopen("copy.txt","a");
+if(fptr3==NULL){
+
+    printf("File doesn't exit");
+
+}else{
+
+
+        int data=0;
+        int test=0;
+        int newone=0;
+        char testc[50];
+        char newc[50];
+        char c;
+        printf("To UPDATE DATA\n");
+        printf("Enter 1 for id,2 for username,3 for password,4 for amount ,5 for age,6 for location");
+        scanf("%d",&data);
+
+        switch(data){
+            //ID
+          case 1:    printf("\nEnter old id");
+                    scanf("%d",&test);
+                      printf("\nEnter new id");
+                      scanf("%d",&newone);
+
+
+                    while(!feof(fptr3)){
+
+                     fscanf(fptr3,"%d%s%d%d%d%s\n",&id3,username3,&password3,&amount3,&age3,location3);
+
+                         if(test==id3){
+
+                           id3=newone;
+
+                            fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+
+
+                        }
+
+                        else{
+
+                       fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+                        }
+                    }break;
+
+            //Username
+            case 2: printf("\nEnter old username");
+                    scanf("%s",testc);
+                      printf("\nEnter new id");
+                      scanf("%s",newc);
+
+                       while(!feof(fptr3)){
+
+                         fscanf(fptr3,"%d%s%d%d%d%s\n",&id3,username3,&password3,&amount3,&age3,location3);
+
+                        int size1=sizeof(username3)/sizeof(username3[0]);
+                      if(strcmp(username3,testc)==0){
+
+                        for(int i=0;i<size1;i++){
+                            username3[i]=newc[i];
+                        }
+                         fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+
+                      }else{
+
+                       fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+                      }
+
+                    }break;
+
+                //password
+             case 3:    printf("\nEnter old password");
+                        scanf("%d",&test);
+                        printf("\nEnter new password");
+                        scanf("%d",&newone);
+
+
+                    while(!feof(fptr3)){
+
+                        fscanf(fptr3,"%d%s%d%d%d%s\n",&id3,username3,&password3,&amount3,&age3,location3);
+
+                         if(test==password3){
+
+                           password3=newone;
+
+                            fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+                        }
+                        else{
+
+                            fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+
+
+                            }
+                    }break;
+                //Amount
+
+             case 4:    printf("\nEnter old amount");
+                        scanf("%d",&test);
+                        printf("\nEnter new amount");
+                        scanf("%d",&newone);
+
+
+                    while(!feof(fptr3)){
+
+                        fscanf(fptr3,"%d%s%d%d%d%s\n",&id3,username3,&password3,&amount3,&age3,location3);
+
+                         if(test==amount3){
+
+                           amount3=newone;
+
+                            fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+                        }
+                        else{
+
+                            fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+
+                        }
+                    }break;
+
+                    //Age
+
+                 case 5:    printf("\nEnter old age");
+                            scanf("%d",&test);
+                            printf("\nEnter new age");
+                            scanf("%d",&newone);
+
+
+                    while(!feof(fptr3)){
+
+                        fscanf(fptr3,"%d%s%d%d%d%s\n",&id3,username3,&password3,&amount3,&age3,location3);
+
+
+                         if(test==age3){
+
+                           age3=newone;
+
+                            fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+                            }
+                    else{
+
+                       fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+
+
+                       }
+                    }break;
+
+                //Location
+
+                case 6: printf("\nEnter old location");
+                        scanf("%s",testc);
+                        printf("\nEnter new location");
+                       scanf("%s",newc);
+
+                       while(!feof(fptr3)){
+
+                         fscanf(fptr3,"%d%s%d%d%d%s\n",&id3,username3,&password3,&amount3,&age3,location3);
+
+                        int size=sizeof(location3)/sizeof(location3[0]);
+                      if(strcmp(location3,testc)==0){
+
+                        for(int i=0;i<size;i++){
+                            location3[i]=newc[i];
+                        }
+                         fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+
+                      }else{
+
+                       fprintf(fp,"%d\t%s\t%d\t%d\t%d\t%s\n",id3,username3,password3,amount3,age3,location3);
+                      }
+
+
+
+                       }break;
+
+}
+ }
+fclose(fp);
+fclose(fptr3);
+remove("client.txt");
+rename("copy.txt","client.txt");
+
+}
+
+
+
