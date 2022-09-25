@@ -1,0 +1,298 @@
+#include<iostream>
+using namespace std;
+
+//Class User
+class User{
+
+public:   int id;
+         string username;
+         int password;
+         int amount;
+
+public: void storeid(int id,int count1);                //behaviour 1
+        void storeusername(string username,int count1); //behaviour 2
+        void storepassword(int password);                //behaviour 3
+        void  storeamount(int amount);                  //behaviour 4
+
+};
+//Behaviour 1 of Class User
+int idArr[10];
+int arraddress=0;
+
+void User::storeid(int id1,int count1){
+
+    for(int i=0;i<10;i++){                //just testing if id1  exit in array
+
+    if(idArr[i]==id1){
+        cout<<"ID Exist"<<endl;
+        cout<<"REenter ID (";
+       for(int j=0;j<arraddress;j++){          //to prevent reenter twice //*TO SOLVE THIS PROBLEM
+           cout<<" "<<idArr[j];
+
+           }
+          cout<<" existed): ";
+          cin>>id1;
+          storeid(id1,0);
+           count1++;
+           break;
+
+          }
+
+
+
+        }
+                                              //end
+
+   if(idArr[arraddress-1]!=id1&&count1<=arraddress){        // to protect entering value twice  because of storeid(id1,0)
+
+
+        idArr[arraddress]=id1;                              //accessing data if id1 is not exit in array
+    //    cout<<id1<<" added in"<<arraddress<<endl;
+         arraddress++;
+
+
+     }
+
+}
+//Behaviour 2 of Class User
+string userArr[10];
+int index=0;
+
+void User::storeusername(string username1,int count1){
+
+int i=0;
+for(i;i<10;i++){
+
+    if(userArr[i]==username1){
+        cout<<"Username Exist"<<endl;
+        cout<<"ReEnter Username (";
+         for(int j=0;j<index;j++){
+            cout<<" "<<userArr[j];
+        }
+        cout<<" existed): ";
+        cin>>username1;
+        storeusername(username1,0);
+        count1++;
+        break;
+
+    }
+}
+    if(userArr[index-1]!=username1&&count1<=index){
+
+        userArr[index]=username1;
+      //  cout<<username1<<" added in"<<index<<endl;
+        index++;
+
+    }
+}
+//Behaviour 3 of Class User
+int passArr[10];
+int passaddress=0;
+void User::storepassword(int password1){
+
+for(int i=0;i<10;i++)
+    passArr[passaddress]=password1;
+  //  cout<<"Password is added in"<<passaddress<<endl;
+    passaddress++;
+
+}
+//Behaviour 4 of Class User
+int amountArr[10];
+int amountaddr=0;
+void User::storeamount(int amount1){
+
+for(int i=0;i<10;i++)
+    amountArr[amountaddr]=amount1;
+  //  cout<<"Amount is added in"<<amountaddr<<endl;
+    amountaddr++;
+    cout<<"Record is added"<<endl;
+    cout<<"-----------------------------"<<endl;
+}
+
+
+//Class User End!!
+
+//Child Class of User
+class   User1:public User{
+
+public:
+    void add();
+    void display();
+    void finddata();
+    void changedata();
+    void deletedata();
+};
+void User1::add(){
+        //Id
+    cout<<"Enter Id:";
+    cin>>id;
+    storeid(id,0);
+
+
+        //Username
+    cout<<"Enter username";
+    cin>>username;
+    storeusername(username,0);
+
+
+    //password
+    cout<<"Enter password";
+    cin>>password;
+    storepassword(password);
+    //Amount
+    cout<<"Enter the amount";
+    cin>>amount;
+    storeamount(amount);
+
+}
+//display
+void User1::display(){
+
+    for(int i=0;i<arraddress;i++){
+        cout<<"Record"<<i+1<<endl;
+        cout<<"ID: "<<idArr[i]<<endl;
+        cout<<"Username: "<<userArr[i]<<endl;
+        cout<<"Password: "<<passArr[i]<<endl;
+        cout<<"Amount: "<<amountArr[i]<<endl;
+        cout<<"-----------------------"<<endl;
+    }
+
+
+}
+//find data
+void User1::finddata(){
+
+cout<<"Enter Id to find";
+cin>>id;
+
+cout<<"ID\tUsername\tPassword\tAmount"<<endl;
+
+for(int k=0;k<arraddress;k++){
+
+
+    if(idArr[k]==id){
+
+        cout<<idArr[k];
+        cout<<"\t"<<userArr[k];
+        cout<<"\t\t"<<passArr[k];
+        cout<<"\t\t"<<amountArr[k]<<endl;
+    }
+}
+        cout<<"-------------------------------"<<endl;
+}
+//change data
+void User1::changedata(){
+cout<<"You can only change password and amount:> ID and username are fixed"<<endl;
+cout<<"Enter Id to find";
+cin>>id;
+
+for(int a=0;a<arraddress;a++){
+
+    if(idArr[a]==id){
+        int data=0;
+        char c;
+        cout<<"1 for password; 2 for amount"<<endl;
+        cout<<":>>";
+        cin>>data;
+
+            switch(data){
+
+            case 1:cout<<"Enter new password";
+                    cin>>password;
+                        passArr[a]=password;
+
+                        break;
+
+            case 2:cout<<"Your balance is";
+                   cout<<amountArr[a]<<endl;
+                   cout<<"Add amount(+) Or Withdraw amount(-)";
+                   cin>>c;
+
+                   if(c=='+'){
+
+                    cout<<"Enter amount to add: ";
+                    cin>>amount;
+
+                    amountArr[a]+=amount;
+                    cout<<"Your new balance is"<<amountArr[a]<<endl;
+                   }
+                   if(c=='-'){
+                    cout<<"Enter amount to add: ";
+                    cin>>amount;
+
+                    amountArr[a]-=amount;
+                    cout<<"Your new balance is"<<amountArr[a]<<endl;
+
+                   }break;
+
+
+            }
+    }
+}
+}
+//delete data
+void User1::deletedata(){
+
+cout<<"Enter Id to delete";
+cin>>id;
+
+for(int b=0;b<arraddress;b++){
+    if(idArr[b]==id){
+        for(int c=b;c<=arraddress;c++){
+            idArr[c]=idArr[c+1];
+            userArr[c]=userArr[c+1];
+            passArr[c]=passArr[c+1];
+            amountArr[c]=amountArr[c+1];
+
+        }
+    }
+}
+arraddress--;
+index--;
+passaddress--;
+amountaddr--;
+display();
+}
+//Class User1 End!!
+
+
+//Main function
+
+int main(){
+
+    User1 employee;
+    int option=0;
+
+    cout<<"You can create only 5 Record"<<endl;
+
+while(true){
+
+    cout<<"Enter the option"<<endl;
+    cout<<"1:To input data"<<endl;
+    cout<<"2:To display all  data"<<endl;
+    cout<<"3:To find only one data with id"<<endl;
+    cout<<"4:To change data with id"<<endl;
+    cout<<"5:To delete data"<<endl;
+    cout<<"6:To exit"<<endl;
+    cout<<">>:";
+    cin>>option;
+
+
+    switch (option) {
+
+        case 1: employee.add();break;
+
+        case 2: employee.display();break;
+
+        case 3: employee.finddata();break;
+
+        case 4: employee.changedata();break;
+
+        case 5: employee.deletedata();break;
+
+        case 6: exit(0);
+
+    }
+}
+return 0;
+}
