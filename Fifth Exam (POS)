@@ -1,0 +1,256 @@
+#include<iostream>
+using namespace std;
+
+class Cafe{
+
+    public:Cafe(){
+
+        cout<<"Welcome to My Cafe!"<<endl;
+
+    }
+
+    private: string item[3]={"coffee","juice","bread"};
+             string coffee[5]={"Espresso","Latte","Icecoffee","Black","Americano"};
+             string juice[5]={"apple","lemon","banana","coke","orange"};
+             string bread[5]={"donuts","sandwich","cookies","croissant","pizza"};
+             int addingcoffee=0;    /*for adding amount in coffeeamount,juiceamount,breadamount*/
+             int addingjuice=0;     /*for adding next time*/
+             int addingbread=0;
+
+
+    protected: int amount=0;//total amount
+               int countforcoffee=0;    //use in countcoffee and qtycoffee for entering next time ,don't want to start from zero
+               int countcoffee[10];
+               int qtycoffee[10];       //use in collecting data
+
+               int countforjuice=0;
+               int countjuice[10];
+               int qtyjuice[10];
+
+               int countforbread=0;
+               int countbread[10];
+               int qtybread[10];
+
+    public:  int coffeeprice[5]={2000,2500,1500,2500,2000};
+             int juiceprice[5]={1500,1000,1000,1000,1500};
+             int breadprice[5]={800,1200,1000,1500,1000};
+
+    public: void mainmenu();
+            void displaycoffee();
+            int  coffeeamount(int index);
+            void displayjuice();
+            int  juiceamount(int num);
+            void displaybread();
+            int  breadamount(int data);
+            int  receipt();
+
+
+
+};
+void Cafe::mainmenu(){
+int menu=0;
+cout<<" Menu"<<endl;
+cout<<"Press 1 for coffee"<<endl;
+cout<<"Press 2 for juice"<<endl;
+cout<<"Press 3 for bread"<<endl;
+cout<<"Press 4 for receipt: ";
+cin>>menu;
+
+switch(menu){
+
+    case 1:displaycoffee();break;
+    case 2:displayjuice();break;
+    case 3:displaybread();break;
+    case 4:receipt();break;
+    default: cout<<"ReEnter option!";
+             mainmenu();break;
+
+}
+}
+
+void Cafe::displaycoffee(){
+
+char c;
+
+for(int i=0;i<5;i++){
+        if(i==1||i==3){
+           cout<<i+1<<"\t"<<coffee[i]<<"\t\t\t"<<coffeeprice[i]<<endl;
+        }else
+      cout<<i+1<<"\t"<<coffee[i]<<"\t\t"<<coffeeprice[i]<<endl;
+}
+while(countforcoffee<10){               //don't want to start from zero in entering next time
+    cout<<"Enter item(1-5): ";
+    cin>>countcoffee[countforcoffee];
+     cout<<"Enter Qty:";
+     cin>>qtycoffee[countforcoffee];
+
+      countforcoffee++;
+     cout<<"Press Q to quit from coffee menu"<<endl;
+     cout<<"Or press any key to continue";
+     cin>>c;
+     if(c=='q'||c=='Q'){
+            coffeeamount(countforcoffee-1);
+            mainmenu();
+        break;
+
+
+     }else{
+        continue;
+     }
+
+}
+}
+int Cafe::coffeeamount(int index){
+  int temp=0;
+  int total=0;
+ // cout<<"\n amount"<<amount;
+    for(addingcoffee;addingcoffee<=index;addingcoffee++){
+      temp=countcoffee[addingcoffee];
+      amount+=(coffeeprice[temp-1]*qtycoffee[addingcoffee]);
+
+    }
+   // cout<<"\n total amount is"<<amount;
+
+}
+void Cafe::displayjuice(){
+//int a=0;
+char c;
+for(int i=0;i<5;i++){
+    cout<<i+1<<"\t"<<juice[i]<<"\t\t\t"<<juiceprice[i]<<endl;
+}
+while(countforjuice<10){
+    cout<<"Enter item(1-5): ";
+    cin>>countjuice[countforjuice];
+     cout<<"Enter Qty:";
+     cin>>qtyjuice[countforjuice];
+     //a++;
+     countforjuice++;
+     cout<<"Press Q to quit from coffee menu"<<endl;
+     cout<<"Or press any key to continue";
+     cin>>c;
+     if(c=='q'||c=='Q'){
+            juiceamount(countforjuice-1);
+            mainmenu();
+        break;
+
+
+     }else{
+        continue;
+     }
+
+}
+}
+int Cafe::juiceamount(int num){
+  int temp=0;
+  //int total=0;
+ // cout<<"\n amount"<<amount;
+    for(addingjuice;addingjuice<=num;addingjuice++){
+      temp=countjuice[addingjuice];
+      amount+=(juiceprice[temp-1]*qtyjuice[addingjuice]);
+
+    }
+    //cout<<"\n total amount is"<<amount;
+
+}
+void Cafe::displaybread(){
+//int b=0;
+char ch;
+for(int i=0;i<5;i++){
+        if(i==1||i==3){
+        cout<<i+1<<"\t"<<bread[i]<<"\t\t"<<breadprice[i]<<endl;
+        }else
+    cout<<i+1<<"\t"<<bread[i]<<"\t\t\t"<<breadprice[i]<<endl;
+}
+while(countforbread<10){
+    cout<<"Enter item(1-5): ";
+    cin>>countbread[countforbread];
+     cout<<"Enter Qty:";
+     cin>>qtybread[countforbread];
+     //b++;
+     countforbread++;
+     cout<<"Press Q to quit from coffee menu"<<endl;
+     cout<<"Or press any key to continue";
+     cin>>ch;
+     if(ch=='q'||ch=='Q'){
+            breadamount(countforbread-1);
+            mainmenu();
+        break;
+
+
+     }else{
+        continue;
+     }
+
+}
+}
+int Cafe::breadamount(int data){
+  int temp=0;
+ // int total=0;
+// cout<<"\n amount"<<amount;
+    for(addingbread;addingbread<=data;addingbread++){
+      temp=countbread[addingbread];
+      amount+=(breadprice[temp-1]*qtybread[addingbread]);
+
+    }
+
+
+}
+int Cafe::receipt(){
+for(int a=0;a<countforcoffee;a++){
+    cout<<countcoffee[a];
+}
+
+ cout<<"\t\t\tReceipt"<<endl;
+ cout<<"Item\t\t\tQty\t\tAmount"<<endl;
+
+
+for(int i=0;i<countforcoffee;i++) {
+
+    int coffeenum=countcoffee[i];
+    if(coffeenum==1||coffeenum==3||coffeenum==5){
+        cout<<coffee[coffeenum-1]<<"\t\t";
+        cout<<qtycoffee[i]<<"\t\t";
+        cout<<coffeeprice[coffeenum-1]*qtycoffee[i]<<endl;
+    }else{
+            cout<<coffee[coffeenum-1]<<"\t\t\t";
+            cout<<qtycoffee[i]<<"\t\t";
+            cout<<coffeeprice[coffeenum-1]*qtycoffee[i]<<endl;
+    }
+
+
+}
+for(int j=0;j<countforjuice;j++){
+
+    int juicenum=countjuice[j];
+    cout<<juice[juicenum-1]<<"\t\t\t";
+    cout<<qtyjuice[j]<<"\t\t";
+    cout<<juiceprice[juicenum-1]*qtyjuice[j]<<endl;
+}
+for(int k=0;k<countforbread;k++){
+
+    int breadnum=countbread[k];
+    if(breadnum==2||breadnum==4){
+         cout<<bread[breadnum-1]<<"\t\t";
+         cout<<qtybread[k]<<"\t\t";
+         cout<<breadprice[breadnum-1]*qtybread[k]<<endl;
+    }else{
+         cout<<bread[breadnum-1]<<"\t\t\t";
+         cout<<qtybread[k]<<"\t\t";
+         cout<<breadprice[breadnum-1]*qtybread[k]<<endl;
+
+    }
+
+}
+cout<<"\n\t\t\tTotal amount is\t"<<amount;
+}
+
+int main(){
+
+        Cafe myCafe;
+
+       myCafe.mainmenu();
+
+
+return 0;
+
+}
