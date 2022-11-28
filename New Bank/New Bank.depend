@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1669021041 source:d:\new bank\new bank.cpp
+	"New Bank.h"
+	<iostream>
+
+1669021481 d:\new bank\new bank.h
+	<iostream>
+
+1669212722 source:d:\new bank\main.cpp
+	<iostream>
+	"Newbank.h"
+
+1669384898 d:\new bank\newbank.h
+	<iostream>
+
+1669386959 source:d:\new bank\newbank.cpp
+	<iostream>
+	"Newbank.h"
+	<fstream>
+	<string>
+	<ctime>
+
