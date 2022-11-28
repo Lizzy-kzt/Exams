@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1667969120 source:d:\lottery\lottery.cpp
+	"lottery.h"
+	<fstream>
+	<iostream>
+
+1667968426 d:\lottery\lottery.h
+	<string>
+
+1667968745 source:d:\lottery\main.cpp
+	<iostream>
+	"lottery.h"
+
